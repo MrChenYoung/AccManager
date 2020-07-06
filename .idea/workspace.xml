@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e8364487-db93-4c3b-b603-3e47a54a1d93" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/view/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/view/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home/view/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/home/view/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/tools/DatabaseBackupManager.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/tools/DatabaseBackupManager.class.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +95,7 @@
       <workItem from="1593937447532" duration="18000" />
       <workItem from="1594024763391" duration="879000" />
       <workItem from="1594056509906" duration="10000" />
+      <workItem from="1594057441068" duration="159000" />
     </task>
     <servers />
   </component>
