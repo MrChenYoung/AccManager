@@ -60,6 +60,9 @@ h4 i.iconfont {
     border-radius: 4px;
     border: 1px solid #e4ecf3;
     height: 90px;
+
+    /* 在原本元素上再加一个transition */
+    transition: all 0.3s ease;
 }
 
 .card-link:hover{
