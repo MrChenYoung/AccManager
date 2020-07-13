@@ -70,8 +70,15 @@ class API_CategoryController extends API_BaseController
         }
         $catName = $_GET["catName"];
 
+        // 分类名
+        if (!isset($_GET["sort"])){
+            echo $this->failed("需要sort参数");
+            die;
+        }
+        $sort = $_GET["sort"];
+
         // 插入数据库
-        $res = DatabaseDataManager::getSingleton()->insert($this->tableName,["cat_icon"=>$iconName,"cat_title"=>$catName]);
+        $res = DatabaseDataManager::getSingleton()->insert($this->tableName,["cat_icon"=>$iconName,"cat_title"=>$catName,"sort"=>$sort]);
         if ($res){
             echo $this->success("添加分类成功 ");
         }else {
@@ -102,7 +109,14 @@ class API_CategoryController extends API_BaseController
         }
         $catName = $_GET["catName"];
 
-        $res = DatabaseDataManager::getSingleton()->update($this->tableName,["cat_icon"=>$iconName,"cat_title"=>$catName],["id"=>$catId]);
+        // 分类名
+        if (!isset($_GET["sort"])){
+            echo $this->failed("需要sort参数");
+            die;
+        }
+        $sort = $_GET["sort"];
+
+        $res = DatabaseDataManager::getSingleton()->update($this->tableName,["cat_icon"=>$iconName,"cat_title"=>$catName,"sort"=>$sort],["id"=>$catId]);
         if ($res){
             echo $this->success("修改成功");
         }else {
