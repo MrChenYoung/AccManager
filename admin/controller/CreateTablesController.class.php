@@ -61,6 +61,7 @@ EEE;
         $sql = <<<EEE
                     CREATE TABLE $tableName(
                         id int AUTO_INCREMENT PRIMARY KEY COMMENT '平台id',
+                        sort int DEFAULT 0 COMMENT '排序',
                         plat_name varchar(300) DEFAULT '' COMMENT '平台名称',
                         acc_list varchar(300) DEFAULT '' COMMENT '账号列表',
                         cat_id int  DEFAULT 0 COMMENT '所属分类'
