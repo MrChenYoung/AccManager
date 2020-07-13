@@ -17,8 +17,19 @@ class API_PlatformController extends API_BaseController
 
     // 获取平台列表
     public function loadPlatformList(){
+        // catId
+        if (!isset($_GET["catId"])){
+            echo $this->failed("需要catId参数");
+            die;
+        }
+        $catId = $_GET["catId"];
+
         // 查询平台列表
-        $platData = DatabaseDataManager::getSingleton()->find($this->tableName);
+        if (strlen($catId) > 0){
+            $platData = DatabaseDataManager::getSingleton()->find($this->tableName,["cat_id"=>$catId]);
+        }else {
+            $platData = DatabaseDataManager::getSingleton()->find($this->tableName);
+        }
 
         // 获取账号列表名称
         $accData = DatabaseDataManager::getSingleton()->find("acc_account");

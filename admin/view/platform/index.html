@@ -102,6 +102,8 @@
     var isEdit = false;
     // 修改平台id
     var editPlatId = "";
+    // 筛选分类id
+    var selectCatFiltId = '';
 
     $(document).ready(function () {
         // 设置边栏服务器信息选中状态
@@ -122,19 +124,60 @@
                 selectedCatId = catid;
                 console.log("catid选择:" + catid);
             });
+
+            // 监听筛选分类选择
+            form.on('select(cat-filter)', function(data){
+                // 选择的catid
+                var catId = data.value;
+                selectCatFiltId = catId;
+                // 请求该分类下的平台列表
+                loadPlatformList();
+            });
         });
 
-        // 请求平台列表
-        loadPlatformList();
+        // 获取筛选分类列表
+        loadCatgoryList();
     });
 
+    // 获取筛选分类列表
+    function loadCatgoryList() {
+        var url = baseUrl + "?m=admin&c=API_Category&a=loadCategotyList&API=";
+        showHud();
+        get(url,function (data) {
+            // 创建筛选分类列表
+            var dom = '<option value="">请选择分类</option>';
+            var catList = data.data;
+            for (var i = 0; i < catList.length; i++){
+                var catData = catList[i];
+                var catId = catData["id"];
+                var catName = catData["cat_title"];
+                dom += '<option value="'+ catId +'">'+ catName +'</option>';
+            }
+
+            layui.use('form',function () {
+                var form = layui.form;
+                $("#filt_cat_select").html(dom);
+                form.render();
+            });
+
+            // 请求平台列表
+            setTimeout(function() {
+                loadPlatformList(false);
+            }, 100);
+        },false);
+    }
+
     // 获取平台列表
-    function loadPlatformList() {
-        var url = baseUrl + "?m=admin&c=API_Platform&a=loadPlatformList&API=";
+    function loadPlatformList(showHud=true) {
+        var url = baseUrl + "?m=admin&c=API_Platform&a=loadPlatformList&API=&catId=" + selectCatFiltId;
         get(url,function (data) {
             // 创建分类列表
             createPlatformDom(data.data);
-        },false);
+
+            if (!showHud){
+                hideHud();
+            }
+        },showHud);
     }
 
     // 请求分类列表
@@ -279,6 +322,16 @@
 <{block name="content"}>
 <div class="aw-content-wrap">
     <div class="mod">
+        <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">筛选</label>
+                <div class="layui-input-inline">
+                    <select id="filt_cat_select" lay-filter="cat-filter">
+                        <option value="">请选择分类</option>
+                    </select>
+                </div>
+            </div>
+        </form>
         <div class="layui-form" style="text-align: center;">
             <table class="layui-table">
                 <colgroup>
