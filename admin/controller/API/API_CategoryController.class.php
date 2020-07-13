@@ -17,7 +17,7 @@ class API_CategoryController extends API_BaseController
 
     // 获取分类列表
     public function loadCategotyList($ret=false){
-        $res = DatabaseDataManager::getSingleton()->find($this->tableName);
+        $res = DatabaseDataManager::getSingleton()->find($this->tableName,[],[],"ORDER BY sort ASC");
         // 获取平台列表名称
         $platData = DatabaseDataManager::getSingleton()->find("acc_platform");
         $plats = [];

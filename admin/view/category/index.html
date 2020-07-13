@@ -109,6 +109,10 @@
         background-color: #e6e6e6;
     }
 
+    .layui-form-item .cat-sort {
+        width: 100px;
+    }
+
 </style>
 <{/block}>
 <{block name="scriptCode"}>
@@ -180,7 +184,9 @@
         var dom = "";
         for(var i = 0; i < data.length; i++){
             var category = data[i];
-            dom += '<tr><td><i class="iconfont icon-'+ category["cat_icon"] +'"></i></td>';
+            dom += '<tr>';
+            dom += '<td>' + category["sort"] + '</td>';
+            dom += '<td><i class="iconfont icon-'+ category["cat_icon"] +'"></i></td>';
             dom += '<td>' + category["cat_title"] + '</td>';
             dom += '<td><ul class="plat_list_ul">';
 
@@ -307,6 +313,7 @@
         <div class="layui-form" style="text-align: center;">
             <table class="layui-table">
                 <colgroup>
+                    <col width="100">
                     <col width="150">
                     <col width="150">
                     <col>
@@ -314,6 +321,7 @@
                 </colgroup>
                 <thead>
                 <tr>
+                    <th>排序</th>
                     <th>分类图标</th>
                     <th>分类名</th>
                     <th>平台</th>
@@ -334,6 +342,12 @@
             <legend id="legend_title">添加分类</legend>
         </fieldset>
         <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline cat-sort">
+                    <input style="text-align: center" id="cat_sort" type="text" lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图标</label>
                 <div class="layui-input-inline">
