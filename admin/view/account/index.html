@@ -187,6 +187,9 @@
         overflow-x: scroll;
     }
 
+    .layui-form-item .cat-sort {
+        width: 100px;
+    }
 </style>
 <{/block}>
 <{block name="scriptCode"}>
@@ -219,6 +222,8 @@
     var addAttachmentId = "";
     // 选择获取logo的api
     var selectApi = "";
+    // 排序
+    var sort = 0;
     $(document).ready(function () {
         // 设置边栏服务器信息选中状态
         $("#account_manager").addClass("active");
@@ -248,6 +253,12 @@
         var remarkInput = $("#acc_remark");
         remarkInput.bind("input propertychange", function (event) {
             addRemark = remarkInput.val();
+        });
+
+        // 监听输入排序
+        var catSortInput = $("#cat_sort");
+        catSortInput.bind("input propertychange", function (event) {
+            sort = catSortInput.val();
         });
 
         // 监听select选择变化
@@ -488,6 +499,7 @@
         addAddress = "";
         addRemark = "";
         addLogo = "";
+        sort = 0;
         // 请求密码列表
         loadPassList(function () {
             // 请求平台列表
@@ -500,7 +512,9 @@
         var dom = "";
         for(var i = 0; i < data.length; i++){
             var account = data[i];
-            dom += '<tr><td>'+ account["acc_desc"] +'</td>';
+            dom += '<tr>';
+            dom += '<td>'+ account["sort"] +'</td>';
+            dom += '<td>'+ account["acc_desc"] +'</td>';
             dom += '<td>'+ account["user"] +'</td>';
             dom += '<td><input pass="'+ account["passwd"] +'" readonly="readonly" type="password" class="layui-input pass-view-input" value="'+ account["passwd"] +'">';
             dom += '<i  accId="'+ account["id"] +'" onclick="previewPass(this)" class="iconfont icon-Xtubiao-chakan translation-icon"></i><i accId="'+ account["id"] +'" id="copy_btn" onclick="copyPass(this)" class="icon icon-reply translation-icon"></i><input class="real-pass" type="text" id="real_pass_'+ account["id"] +'"></td>';
@@ -605,7 +619,8 @@
                 + "&user=" + addUserName
                 + "&pass=" + addPassWd
                 + "&address=" + addAddress
-                + "&remark=" + addRemark;
+                + "&remark=" + addRemark
+                + "&sort=" + sort;
         }else {
             // 添加
             url = baseUrl + "?m=admin&c=API_Account&a=addAccount&API="
@@ -615,7 +630,8 @@
                 + "&pass=" + addPassWd
                 + "&address=" + addAddress
                 + "&remark=" + addRemark
-                + "&attachmentId=" + addAttachmentId;
+                + "&attachmentId=" + addAttachmentId
+                + "&sort=" + sort;
         }
 
         console.log("添加账户:" + url);
@@ -673,6 +689,7 @@
                 addPassWd = RSADecryptPass(addPassWd);
                 addAddress = accData["address"];
                 addRemark = accData["remark"];
+                sort = accData["sort"];
 
                 // 加载平台列表
                 loadPlatList();
@@ -728,6 +745,7 @@
                 addPassWd = RSADecryptPass(addPassWd);
                 addAddress = accData["address"];
                 addRemark = accData["remark"];
+                sort = accData["sort"];
 
                 // 加载平台列表
                 loadPlatList();
@@ -817,6 +835,8 @@
         $("#login_address").val(addAddress);
         // 备注
         $("#acc_remark").val(addRemark);
+        // 排序
+        $("#cat_sort").val(sort);
         // logo
         setLogo();
 
@@ -875,6 +895,7 @@
         <div class="layui-form" style="text-align: center;">
             <table id="acc_table" class="layui-table">
                 <colgroup>
+                    <col width="50">
                     <col width="150">
                     <col width="150">
                     <col width="150">
@@ -885,6 +906,7 @@
                 </colgroup>
                 <thead>
                 <tr>
+                    <th>排序</th>
                     <th>账户描述</th>
                     <th>用户名</th>
                     <th>密码</th>
@@ -908,6 +930,12 @@
             <legend id="legend_title">添加账号</legend>
         </fieldset>
         <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline cat-sort">
+                    <input style="text-align: center" id="cat_sort" type="text" lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">所属平台</label>
                 <div class="layui-input-inline">

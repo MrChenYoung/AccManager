@@ -32,6 +32,7 @@ class API_CommonController extends API_BaseController
                     if (key_exists("acc_list",$platData)){
                         $accIdLists = $platData["acc_list"];
                         $accLists = [];
+                        $sortData = [];
                         if (strlen($accIdLists) > 0){
                             $accIdLists = explode(",",$accIdLists);
                             foreach ($accIdLists as $accId) {
@@ -43,8 +44,11 @@ class API_CommonController extends API_BaseController
                                 $hasAttachment = count($attachmentData) > 0 ? true : false;
                                 $accData["hasAttachment"] = $hasAttachment;
                                 $accLists[] = $accData;
+                                $sortData[] = $accData["sort"];
                             }
                         }
+                        // 按照sort排序
+                        array_multisort($sortData, SORT_ASC, $accLists);
                         $platData["acc_list"] = $accLists;
                     }
                     $platLists[] = $platData;

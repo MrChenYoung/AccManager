@@ -77,6 +77,7 @@ EEE;
         $sql = <<<EEE
                     CREATE TABLE $tableName(
                         id int AUTO_INCREMENT PRIMARY KEY COMMENT '账号id',
+                        sort int DEFAULT 0 COMMENT '排序',
                         acc_desc varchar(128) DEFAULT '' COMMENT '描述',
                         user varchar(128) DEFAULT '' COMMENT '用户名',
                         passwd varchar(256) DEFAULT '' COMMENT '密码',
