@@ -2,8 +2,6 @@
 var baseUrl = $("#base_url").val();
 // 图片所在文件夹
 var imageBaseUrl = $("#image_base_url").val();
-//layui loading
-var loadIndex;
 // 保存到cookie的公钥键
 var publickKey = "rsaPublicKey";
 // 保存到cookie的私钥键
@@ -13,6 +11,17 @@ var rsaPublicContent;
 // rsa私钥内容
 var rsaPrivateContent;
 $(document).ready(function () {
+    less = {
+        env: "development",
+        async: false,
+        fileAsync: false,
+        poll: 1000,
+        functions: {},
+        dumpLineNumbers: "comments",
+        relativeUrls: false,
+        rootpath: ":/a.com/"
+    };
+
     // 获取公钥和私钥
     rsaPublicContent = getCookie(publickKey);
     rsaPrivateContent = getCookie(privateKey);
@@ -27,25 +36,12 @@ $(document).ready(function () {
 
 // 显示hud
 function showHud() {
-    layui.use('layer', function() {
-        var layer = layui.layer;
-        layer.ready(function () {
-            loadIndex = layer.load(0,{
-                shade: [0.6, '#FFF'],
-                shadeClose: true
-            });
-        });
-    });
+    $(".main-hud").css("display","block");
 };
 
 // 隐藏hud
 function hideHud() {
-    layui.use('layer', function() {
-        var layer = layui.layer;
-        layer.ready(function () {
-            layer.close(loadIndex);
-        });
-    });
+    $(".main-hud").css("display","none");
 }
 
 /**
