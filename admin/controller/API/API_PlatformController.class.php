@@ -18,11 +18,7 @@ class API_PlatformController extends API_BaseController
     // 获取平台列表
     public function loadPlatformList(){
         // catId
-        if (!isset($_GET["catId"])){
-            echo $this->failed("需要catId参数");
-            die;
-        }
-        $catId = $_GET["catId"];
+        $catId = isset($_GET["catId"]) ? $_GET["catId"] : "";
 
         // 查询平台列表
         if (strlen($catId) > 0){
