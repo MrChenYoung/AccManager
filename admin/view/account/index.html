@@ -812,7 +812,7 @@
             console.log("获取附件id:" + getAttIdUrl);
             get(getAttIdUrl,function (data) {
                 hideHud();
-                
+
                 // 跳转到附件管理页面
                 var url = baseUrl + "?m=admin&c=AttachmentManager&a=index&id=" + accId + "&tbName=acc_account&accName=" + accDesc;
                 console.log("加载附件列表:" + url);
@@ -847,7 +847,7 @@
                     <col width="60">
                     <col width="150">
                     <col width="150">
-                    <col width="150">
+                    <col width="200">
                     <col width="150">
                     <col width="150">
                     <col >
@@ -926,7 +926,6 @@
                     <img src="" id="logo_img" class="logo-img">
                     <button  onclick="uploadLogo()" type="button" id="upload_logo_btn" class="layui-btn logo-btn">上传</button>
                     <button  onclick="resetLogo()" type="button" id="reset_logo_btn" class="layui-btn logo-btn">设成默认</button>
-                    <button  onclick="uploadAttachment()" type="button" id="attachment_btn" class="layui-btn logo-btn">上传附件</button>
                 </div>
             </div>
             <div class="layui-form-item">
