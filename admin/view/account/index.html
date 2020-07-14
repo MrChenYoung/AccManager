@@ -784,7 +784,7 @@
         }
     }
 
-    // 显示添加/修改平台浮层
+    // 显示添加/修改账号浮层
     function showEditCatCover() {
         if (isEdit){
             $("#legend_title").text("修改账号");
@@ -806,6 +806,8 @@
         $("#acc_remark").val(addRemark);
         // 排序
         $("#cat_sort").val(sort);
+        // logo
+        $("#logo_img").attr("src",addLogo);
     }
 
     // 隐藏添加/修改分类浮层
