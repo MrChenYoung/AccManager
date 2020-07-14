@@ -385,18 +385,6 @@ EEE;
         }
     }
 
-    // 取消添加账户，如果没有账户对应的记录，就删除刚添加的附件记录
-    public function cacelAddAccount(){
-        // id
-        if (!isset($_REQUEST["attId"])){
-            echo $this->failed("需要attId参数");
-            die;
-        }
-        $attId = $_REQUEST["attId"];
-
-        $res = (new API_AttachmentController())->clearAttachment("","",$attId);
-    }
-
     // 获取logo接口1
     private function getLogo1($address){
         $url = $address."/favicon.ico";
