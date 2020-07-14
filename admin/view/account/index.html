@@ -432,7 +432,7 @@
     }
 
     // 请求平台列表
-    function loadPlatList(showHud=true) {
+    function loadPlatList() {
         var url = baseUrl + "?m=admin&c=API_Platform&a=loadPlatformList&API=";
         get(url, function (data) {
             layui.use('form', function(){
@@ -449,17 +449,15 @@
                 form.render();
 
                 // 显示添加界面
-                if (!showHud){
-                    showEditCatCover(true);
-                }else {
-                    showEditCatCover(false);
-                }
+                showEditCatCover();
+
+                hideHud();
             });
-        },showHud);
+        },false);
     }
 
     // 请求密码列表
-    function loadPassList(success=null,showHud=true) {
+    function loadPassList(success=null) {
         var url = baseUrl + "?m=admin&c=API_PassManager&a=loadPassList&API=";
         console.log("请求密码列表:" + url);
         get(url, function (data) {
@@ -480,12 +478,8 @@
                 if (success){
                     success();
                 }
-
-                if (!showHud){
-                    hideHud();
-                }
             });
-        },showHud)
+        },false)
     }
 
     // 添加账号
@@ -505,7 +499,7 @@
         loadPassList(function () {
             // 请求平台列表
             loadPlatList(false);
-        },false);
+        });
     }
 
     // 创建账号列表
@@ -686,26 +680,26 @@
 
         // 加载密码列表
         showHud();
-        loadPassList(function () {
-            // 请求指定账号数据
-            var url = baseUrl + "?m=admin&c=API_Account&a=loadAccount&id=" + accId + "&API=";
-            console.log("请求指定账号数据:" + url);
-            get(url,function (data) {
-                var accData = data.data;
-                selectedPlatId = accData["plat_id"];
-                addDesc = accData["acc_desc"];
-                addUserName = accData["user"];
-                addPassWd = accData["passwd"];
-                addLogo = accData["logo"];
-                // 解密
-                addPassWd = RSADecryptPass(addPassWd);
-                addAddress = accData["address"];
-                addRemark = accData["remark"];
-                sort = accData["sort"];
+        // 请求指定账号数据
+        var url = baseUrl + "?m=admin&c=API_Account&a=loadAccount&id=" + accId + "&API=";
+        console.log("请求指定账号数据:" + url);
+        get(url,function (data) {
+            var accData = data.data;
+            selectedPlatId = accData["plat_id"];
+            addDesc = accData["acc_desc"];
+            addUserName = accData["user"];
+            addPassWd = accData["passwd"];
+            addLogo = accData["logo"];
+            // 解密
+            addPassWd = RSADecryptPass(addPassWd);
+            addAddress = accData["address"];
+            addRemark = accData["remark"];
+            sort = accData["sort"];
 
+            loadPassList(function () {
                 // 加载平台列表
                 loadPlatList(false);
-            },false);
+            });
         },false);
     }
 
@@ -737,7 +731,7 @@
                 // 加载平台列表
                 loadPlatList(false);
             });
-        },false);
+        });
     }
     
     // 上传logo
@@ -758,7 +752,7 @@
     }
 
     // 显示添加/修改账号浮层
-    function showEditCatCover(hudDismiss=false) {
+    function showEditCatCover() {
         $(".add-category-box").css("display","block");
         console.log("显示浮层");
         if (isEdit){
@@ -782,10 +776,6 @@
         $("#cat_sort").val(sort);
         // logo
         $("#logo_img").attr("src",addLogo);
-
-        if(hudDismiss){
-            hideHud();
-        }
     }
 
     // 隐藏添加/修改分类浮层
