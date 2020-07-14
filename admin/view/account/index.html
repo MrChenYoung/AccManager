@@ -449,10 +449,10 @@
                 form.render();
 
                 // 显示添加界面
-                showEditCatCover();
-
                 if (!showHud){
-                    hideHud();
+                    showEditCatCover(true);
+                }else {
+                    showEditCatCover(false);
                 }
             });
         },showHud);
@@ -758,7 +758,7 @@
     }
 
     // 显示添加/修改账号浮层
-    function showEditCatCover() {
+    function showEditCatCover(hideHud=false) {
         $(".add-category-box").css("display","block");
         if (isEdit){
             $("#legend_title").text("修改账号");
@@ -781,6 +781,10 @@
         $("#cat_sort").val(sort);
         // logo
         $("#logo_img").attr("src",addLogo);
+
+        if(hideHud){
+            hideHud();
+        }
     }
 
     // 隐藏添加/修改分类浮层
