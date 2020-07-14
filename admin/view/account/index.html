@@ -589,6 +589,7 @@
         addAddress = btoa(addAddress);
 
         // 密码加密
+        console.log("要加密的密码:" + addPassWd);
         addPassWd = RSAEncryptPass(addPassWd);
         // base64编码
         addPassWd = btoa(addPassWd);
@@ -629,8 +630,6 @@
                 logo : addLogo
             };
         }
-
-        console.log("添加账户:" + url);
 
         post(baseUrl,postData,function () {
             // 浮层消失
