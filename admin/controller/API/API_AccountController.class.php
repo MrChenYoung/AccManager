@@ -19,39 +19,13 @@ class API_AccountController extends API_BaseController
 
     // 获取账号列表
     public function loadAccountList(){
-        // 分类id
-        $catId = "";
-        if (isset($_REQUEST["id"])){
-            $catId = $_REQUEST["id"];
-        }
-
         // 查询账号列表
-        $accData = DatabaseDataManager::getSingleton()->find($this->tableName,[],[],"ORDER BY sort ASC");
+        $sql = <<<EEE
+SELECT acc_account.*,acc_platform.plat_name FROM acc_account,acc_platform WHERE acc_account.plat_id=acc_platform.id ORDER BY acc_account.sort ASC 
+EEE;
+
+        $accData = DatabaseDataManager::getSingleton()->fetch($sql);
         if ($accData !== false){
-            // 获取每个账号所属的平台
-            foreach ($accData as $key=>$accDatum) {
-                $platId = $accDatum["plat_id"];
-                $platData = DatabaseDataManager::getSingleton()->find("acc_platform",["id"=>$platId],["plat_name"],"ORDER BY id");
-                $platName = "";
-                if ($platData !== false && count($platData) > 0){
-                    $platName = $platData[0]["plat_name"];
-                }
-                $accData[$key]["plat_name"] = $platName;
-
-                // 如果账号的logo为空 设置一个默认的logo
-                $logo = $accDatum["logo"];
-                if (!strlen($logo)){
-//                    $logo = $this->getLogo($accDatum["address"]);
-//                    if (strlen($logo)){
-//                        $accData[$key]["logo"] = $logo;
-//                        // 保存logo到数据库
-//                        DatabaseDataManager::getSingleton()->update($this->tableName,["logo"=>$logo],["id"=>$accDatum["id"]]);
-//                    }
-                    $accData[$key]["logo"] = $this->defaultLogo;
-                    DatabaseDataManager::getSingleton()->update($this->tableName,["logo"=>$this->defaultLogo],["id"=>$accDatum["id"]]);
-                }
-            }
-
             echo $this->success($accData);
         }else {
             echo $this->failed("获取平台列表失败");
