@@ -127,7 +127,7 @@ class API_AttachmentController extends API_BaseController
     // 添加附件
     public function addAttachment(){
         sleep(10);
-        
+
         // 获取哪一条数据的附件
         if (!isset($_REQUEST["aid"])){
             echo $this->failed("需要aid参数");
