@@ -165,11 +165,13 @@
     var isEditing = false;
     // 预览图片数据
     var photos;
+    var baseUrl;
     $(document).ready(function () {
         aid = $("#aid").val();
         tbName = $("#tb_name").val();
         accName = $("#acc_name").val();
         $("#att_title").text(accName + "的附件管理");
+        baseUrl = $("#base_url").val();
 
         // 监听文件被选择
         $('#file_select_input').change(function(e){
