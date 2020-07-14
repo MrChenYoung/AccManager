@@ -236,18 +236,11 @@ class API_AttachmentController extends API_BaseController
         }
 
         if ($imageData){
-            // 查询对应的账户表是否存在 如果不存在则删除附件记录
-            $accRecord = DatabaseDataManager::getSingleton()->find("acc_account",["id"=>$imageData[0]["aid"]]);
-
-            if ($accRecord){
-                // 有记录 不能删除该附件记录
-                return;
-            }
-
             // 删除附件记录
             $imageData = $imageData[0];
             foreach ($imageData as $key=>$re) {
                 if ($key !== "id" && $key !== "aid" && $key !== "tb_name" && $re){
+                    // 解析图片名和图片base64编码
                     $handleResult = $this->imageDataHandle($re);
                     $imageName = "";
                     if ($handleResult !== false){
