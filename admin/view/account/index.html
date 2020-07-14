@@ -358,10 +358,8 @@
             });
 
             // 请求账号列表
-            setTimeout(function() {
-                loadAccountList();
-            }, 100);
-        });
+            loadAccountList(false);
+        },false);
     }
     
     // 获取指定分类下的平台列表
@@ -389,21 +387,25 @@
     }
 
     // 获取账号列表
-    function loadAccountList() {
+    function loadAccountList(showHud=true) {
         if (selectPlatformId.length > 0){
-            reloadAccountList();
+            reloadAccountList(null,showHud);
         }else {
             var url = baseUrl + "?m=admin&c=API_Account&a=loadAccountList&API=";
             console.log("获取账户列表:" + url);
             get(url,function (data) {
                 // 创建分类列表
                 createAccountDom(data.data);
-            },true,false,20000);
+
+                if(!showHud){
+                    hideHud();
+                }
+            },showHud,false,20000);
         }
     }
     
     // 刷新账号列表
-    function reloadAccountList(success=null) {
+    function reloadAccountList(success=null,showHud=true) {
         var url = baseUrl + "?m=home&c=API_Common&a=loadHomeAccountLists&API=&id=" + selectCatId;
         get(url,function (data) {
             // 平台列表
@@ -421,7 +423,11 @@
 
             // 刷新账号列表
             createAccountDom(accountData);
-        });
+
+            if(!showHud){
+                hideHud();
+            }
+        },showHud);
     }
 
     // 请求平台列表
@@ -631,12 +637,13 @@
             };
         }
 
+        showHud();
         post(baseUrl,postData,function () {
             // 浮层消失
             hideEditCatCover();
             // 刷新账号列表
-            loadAccountList();
-        },true,true);
+            loadAccountList(false);
+        },false,true);
     }
 
     // 取消添加平台
@@ -652,10 +659,11 @@
             var platId = $this.attr("platId");
             var url = baseUrl + "?m=admin&c=API_Account&a=deleteAccount&id=" + accId + "&platId=" + platId + "&API=";
             console.log("删除：" + url);
+            showHud();
             get(url,function () {
                 // 刷新列表
-                loadAccountList();
-            },true,true);
+                loadAccountList(false);
+            },false,true);
         });
     }
     
