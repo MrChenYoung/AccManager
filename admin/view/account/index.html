@@ -498,7 +498,7 @@
         showHud();
         loadPassList(function () {
             // 请求平台列表
-            loadPlatList(false);
+            loadPlatList();
         });
     }
 
@@ -698,7 +698,7 @@
 
             loadPassList(function () {
                 // 加载平台列表
-                loadPlatList(false);
+                loadPlatList();
             });
         },false);
     }
@@ -729,8 +729,8 @@
                 sort = accData["sort"];
 
                 // 加载平台列表
-                loadPlatList(false);
-            });
+                loadPlatList();
+            },false);
         });
     }
     
