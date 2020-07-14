@@ -325,6 +325,8 @@
                     //转换结果
                     var base64ImgContent = reader.result;
                     addLogo = base64ImgContent;
+                    // logo
+                    $("#logo_img").attr("src",addLogo);
                 }
             }else {
                 toast("图片为空");
@@ -640,10 +642,6 @@
 
     // 取消添加平台
     function cancel() {
-        // // 删除已经创建的附件数据
-        // var url = baseUrl + "?m=admin&c=API_Account&a=cacelAddAccount&API=&attId="+addAttachmentId;
-        // console.log("删除附件记录:" + url);
-        // get(url,null,false);
         hideEditCatCover();
     }
 
@@ -723,65 +721,21 @@
         });
     }
     
-    // 获取/更新logo
-    function loadLogo() {
-        if (selectApi == 3){
-            // 清空input文件选择 防止选择同一个文件不触发input文件选择框的选择文件完成方法
-            var file = document.getElementById('file_select_input');
-            file.value = '';
-
-            // 自定义上传
-            $("#file_select_input").click();
-        }else {
-            // 通过接口获取
-            var add = btoa(addAddress);
-            var accId = editAccountId.length > 0 ? editAccountId : "";
-            var url = baseUrl + "?m=admin&c=API_Account&a=loadLogo&address=" + add + "&API=&accId=" + accId + "&selectApi=" + selectApi;
-            console.log("获取logo:" + url);
-            get(url,function (data) {
-                var res = data.data;
-                if (res == '无法获取logo'){
-                    addLogo = defaultLogo;
-                    toast(res);
-                }else {
-                    toast("获取logo成功");
-                    addLogo = res;
-                }
-            },true,false,5000);
-        }
-    }
-
     // 上传logo
-    function uploadLogoImage(base64ImgContent) {
-        var data = {
-            m : "admin",
-            c : "API_Account",
-            a : "uploadLogoImage",
-            accId  : editAccountId,
-            base64ImgContent : base64ImgContent,
-            API : ""
-        };
-        post(baseUrl,data,function () {
-            addLogo = base64ImgContent;
-        },true,true)
+    function uploadLogo() {
+        // 清空input文件选择 防止选择同一个文件不触发input文件选择框的选择文件完成方法
+        var file = document.getElementById('file_select_input');
+        file.value = '';
+
+        // 自定义上传
+        $("#file_select_input").click();
     }
     
-    // 查询附件 success：获取附件结果回调，bool参数表示是否有附件
-    function loadAttachment(success) {
-        if (editAccountId.length > 0){
-            var url = baseUrl + "?m=admin&c=API_Attachment&a=loadAttachmentLists" + "&API=&id=" + editAccountId + "&tbName=acc_account";
-            console.log("请求附件:" + url);
-            get(url,function (data) {
-                var attachments = data.data.data;
-                if (attachments.length > 0){
-                    success(true);
-                }else {
-                    success(false);
-                }
-            })
-        }else {
-            success(false);
-        }
+    // 设置logo为默认的
+    function resetLogo() {
+        addLogo = defaultLogo;
+        // logo
+        $("#logo_img").attr("src",addLogo);
     }
 
     // 显示添加/修改账号浮层
