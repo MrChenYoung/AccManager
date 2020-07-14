@@ -432,7 +432,7 @@
     }
 
     // 请求平台列表
-    function loadPlatList() {
+    function loadPlatList(showHud=true) {
         var url = baseUrl + "?m=admin&c=API_Platform&a=loadPlatformList&API=";
         get(url, function (data) {
             layui.use('form', function(){
@@ -450,12 +450,16 @@
 
                 // 显示添加界面
                 showEditCatCover();
+
+                if (!showHud){
+                    hideHud();
+                }
             });
-        })
+        },showHud);
     }
 
     // 请求密码列表
-    function loadPassList(success) {
+    function loadPassList(success=null,showHud=true) {
         var url = baseUrl + "?m=admin&c=API_PassManager&a=loadPassList&API=";
         console.log("请求密码列表:" + url);
         get(url, function (data) {
@@ -476,11 +480,15 @@
                 if (success){
                     success();
                 }
+
+                if (!showHud){
+                    hideHud();
+                }
             });
-        })
+        },showHud)
     }
 
-    // 添加平台
+    // 添加账号
     function addData() {
         isEdit = false;
         editAccountId = '';
@@ -493,10 +501,11 @@
         addLogo = defaultLogo;
         sort = 0;
         // 请求密码列表
+        showHud();
         loadPassList(function () {
             // 请求平台列表
-            loadPlatList();
-        });
+            loadPlatList(false);
+        },false);
     }
 
     // 创建账号列表
@@ -676,6 +685,7 @@
         editAccountId = accId;
 
         // 加载密码列表
+        showHud();
         loadPassList(function () {
             // 请求指定账号数据
             var url = baseUrl + "?m=admin&c=API_Account&a=loadAccount&id=" + accId + "&API=";
@@ -694,9 +704,9 @@
                 sort = accData["sort"];
 
                 // 加载平台列表
-                loadPlatList();
-            });
-        });
+                loadPlatList(false);
+            },false);
+        },false);
     }
 
     // 复制一个账号
@@ -707,6 +717,7 @@
         editAccountId = accId;
 
         // 加载密码列表
+        showHud();
         loadPassList(function () {
             // 请求指定账号数据
             var url = baseUrl + "?m=admin&c=API_Account&a=loadAccount&id=" + accId + "&API=";
@@ -724,9 +735,9 @@
                 sort = accData["sort"];
 
                 // 加载平台列表
-                loadPlatList();
+                loadPlatList(false);
             });
-        });
+        },false);
     }
     
     // 上传logo
