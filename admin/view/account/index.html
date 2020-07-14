@@ -340,6 +340,7 @@
     // 获取筛选分类列表
     function loadCatgoryList() {
         var url = baseUrl + "?m=admin&c=API_Category&a=loadCategotyList&API=";
+        showHud();
         get(url,function (data) {
             // 创建筛选分类列表
             var dom = '<option value="">请选择分类</option>';
