@@ -143,7 +143,7 @@ class API_AttachmentController extends API_BaseController
         if ($res){
             // 已经存储过
             $res = $res[0];
-            for ($i = 1; $i < 11; $i++){
+            for ($i = 1; $i < 21; $i++){
                 $img = $res["att_".$i];
                 if (strlen($img) == 0){
                     $number = "$i";

@@ -783,8 +783,8 @@
         $(".add-category-box").css("display","none");
     }
     
-    // 上传/编辑附件
-    function editAttachment() {
+    // 上传附件
+    function uploadAttachment() {
         // 首先获取附件表对应的id
         var getAttIdUrl = baseUrl + "?m=admin&c=API_Attachment&a=getAttachmentId&aid=" + editAccountId + "&tbName=acc_account";
         console.log("获取附件id:" + getAttIdUrl);
@@ -903,7 +903,7 @@
                     <img src="" id="logo_img" class="logo-img">
                     <button  onclick="uploadLogo()" type="button" id="upload_logo_btn" class="layui-btn logo-btn">上传</button>
                     <button  onclick="resetLogo()" type="button" id="reset_logo_btn" class="layui-btn logo-btn">设成默认</button>
-                    <button  onclick="editAttachment()" type="button" id="attachment_btn" class="layui-btn logo-btn">上传附件</button>
+                    <button  onclick="uploadAttachment()" type="button" id="attachment_btn" class="layui-btn logo-btn">上传附件</button>
                 </div>
             </div>
             <div class="layui-form-item">
