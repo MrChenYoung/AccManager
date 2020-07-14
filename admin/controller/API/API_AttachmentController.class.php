@@ -85,9 +85,17 @@ class API_AttachmentController extends API_BaseController
                 if ($key !== "id" && $key !== "aid" && $key !== "tb_name" && $re){
                     $handleResult = $this->imageDataHandle($re);
                     $imageName = "";
+                    $imageContent = "";
                     if ($handleResult !== false){
                         $imageName = $handleResult["name"];
+                        $imageContent = $handleResult["content"];
                     }
+                    // 如果图片文件在本地不存在 保存到本地
+                    $imagePath = $this->imageSaveDir."/".$imageName;
+                    if (strlen($imageName) > 0 && !file_exists($imagePath) && strlen($imageContent) > 0){
+                        file_put_contents($imagePath,$imageContent);
+                    }
+
                     if (strlen($imageName) > 0){
                         $imageUrl = $this->website."/admin/resource/attachmentImages/".$imageName;
                         $data[] = [
