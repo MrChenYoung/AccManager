@@ -783,7 +783,9 @@
         $("#logo_img").attr("src",addLogo);
 
         if(hudDismiss){
-            hideHud();
+            setTimeout(function () {
+                hideHud();
+            },200);
         }
     }
 
