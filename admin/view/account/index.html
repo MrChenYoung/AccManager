@@ -435,26 +435,26 @@
     function loadPlatList(showHud=true) {
         var url = baseUrl + "?m=admin&c=API_Platform&a=loadPlatformList&API=";
         get(url, function (data) {
-            // layui.use('form', function(){
-            //     var form = layui.form;
-            //     var platData = data.data;
-            //     // 创建要选择的分类列表
-            //     var dom = '<option value="">请选择平台</option>';
-            //     for (var i = 0; i < platData.length; i++){
-            //         var plat = platData[i];
-            //         dom += '<option value="'+ plat["id"] +'" >'+ plat["plat_name"] +'</option>';
-            //     }
-            //     $("#plat_select").html(dom);
-            //     $("#plat_select").val(selectedPlatId);
-            //     form.render();
-            // });
+            layui.use('form', function(){
+                var form = layui.form;
+                var platData = data.data;
+                // 创建要选择的分类列表
+                var dom = '<option value="">请选择平台</option>';
+                for (var i = 0; i < platData.length; i++){
+                    var plat = platData[i];
+                    dom += '<option value="'+ plat["id"] +'" >'+ plat["plat_name"] +'</option>';
+                }
+                $("#plat_select").html(dom);
+                $("#plat_select").val(selectedPlatId);
+                form.render();
 
-            // 显示添加界面
-            if (!showHud){
-                showEditCatCover(true);
-            }else {
-                showEditCatCover(false);
-            }
+                // 显示添加界面
+                if (!showHud){
+                    showEditCatCover(true);
+                }else {
+                    showEditCatCover(false);
+                }
+            });
         },showHud);
     }
 
