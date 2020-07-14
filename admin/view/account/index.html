@@ -446,16 +446,15 @@
                 }
                 $("#plat_select").html(dom);
                 $("#plat_select").val(selectedPlatId);
-
-                // 显示添加界面
-                if (!showHud){
-                    showEditCatCover(true);
-                }else {
-                    showEditCatCover(false);
-                }
-
                 form.render();
             });
+
+            // 显示添加界面
+            if (!showHud){
+                showEditCatCover(true);
+            }else {
+                showEditCatCover(false);
+            }
         },showHud);
     }
 
@@ -785,10 +784,7 @@
         $("#logo_img").attr("src",addLogo);
 
         if(hudDismiss){
-            setTimeout(function () {
-                hideHud();
-                console.log("隐藏hud");
-            },200);
+            hideHud();
         }
     }
 
