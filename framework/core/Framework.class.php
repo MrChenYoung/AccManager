@@ -63,7 +63,7 @@ class Framework
         if (strlen($modoule) > 0){
             $m = $modoule;
         }else {
-            $m = isset($_GET['m']) ? $_GET['m'] : $GLOBALS['config']['default_module'];
+            $m = isset($_REQUEST['m']) ? $_REQUEST['m'] : $GLOBALS['config']['default_module'];
         }
         define('MODULE',$m);
 
@@ -71,7 +71,7 @@ class Framework
         if (strlen($controller) > 0){
             $c = $controller;
         }else {
-            $c = isset($_GET['c']) ? $_GET['c'] : $GLOBALS['config']['default_controller'];
+            $c = isset($_REQUEST['c']) ? $_REQUEST['c'] : $GLOBALS['config']['default_controller'];
         }
         define('CONTROLLER',$c);
 
@@ -79,7 +79,7 @@ class Framework
         if (strlen($action) > 0){
             $a = $action;
         }else {
-            $a = isset($_GET['a']) ? $_GET['a'] : $GLOBALS['config']['default_action'];
+            $a = isset($_REQUEST['a']) ? $_REQUEST['a'] : $GLOBALS['config']['default_action'];
         }
         define('ACTION',$a);
     }

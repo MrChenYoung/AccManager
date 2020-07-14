@@ -134,7 +134,7 @@ EEE;
         $sql = <<<EEE
                     CREATE TABLE $tableName(
                         id int AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-                        aid int COMMENT '关联的id',
+                        aid int COMMENT '关联的账号id',
                         tb_name varchar(64) DEFAULT '' COMMENT '关联表名',
                         att_1 MEDIUMTEXT COMMENT '附件1',
                         att_2 MEDIUMTEXT COMMENT '附件2',

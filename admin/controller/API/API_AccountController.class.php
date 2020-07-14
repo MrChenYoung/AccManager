@@ -21,8 +21,8 @@ class API_AccountController extends API_BaseController
     public function loadAccountList(){
         // 分类id
         $catId = "";
-        if (isset($_GET["id"])){
-            $catId = $_GET["id"];
+        if (isset($_REQUEST["id"])){
+            $catId = $_REQUEST["id"];
         }
 
         // 查询账号列表
@@ -61,11 +61,11 @@ class API_AccountController extends API_BaseController
     // 请求指定账号数据
     public function loadAccount(){
         // id
-        if (!isset($_GET["id"])){
+        if (!isset($_REQUEST["id"])){
             echo $this->failed("需要id参数");
             die;
         }
-        $accId = $_GET["id"];
+        $accId = $_REQUEST["id"];
 
         $sql = <<<EEE
 SELECT acc_account.*,acc_platform.plat_name FROM acc_account,acc_platform WHERE acc_account.plat_id=acc_platform.id AND acc_account.id=$accId;
@@ -82,71 +82,68 @@ EEE;
     // 添加账号
     public function addAccount(){
         // 所属平台
-        if (!isset($_GET["platId"])){
+        if (!isset($_REQUEST["platId"])){
             echo $this->failed("需要platId参数");
             die;
         }
-        $platId = $_GET["platId"];
+        $platId = $_REQUEST["platId"];
 
         // 账户描述信息
-        if (!isset($_GET["desc"])){
+        if (!isset($_REQUEST["desc"])){
             echo $this->failed("需要desc参数");
             die;
         }
-        $desc = $_GET["desc"];
+        $desc = $_REQUEST["desc"];
 
         // 用户名
-        if (!isset($_GET["user"])){
+        if (!isset($_REQUEST["user"])){
             echo $this->failed("需要user参数");
             die;
         }
-        $user = $_GET["user"];
+        $user = $_REQUEST["user"];
         // base64解码
         $user = base64_decode($user);
         // 解码js进行的uri编码，为了处理中文
         $user = urldecode($user);
 
         // 排序
-        if (!isset($_GET["sort"])){
+        if (!isset($_REQUEST["sort"])){
             echo $this->failed("需要sort参数");
             die;
         }
-        $sort = $_GET["sort"];
+        $sort = $_REQUEST["sort"];
 
         // 密码
-        if (!isset($_GET["pass"])){
+        if (!isset($_REQUEST["pass"])){
             echo $this->failed("需要pass参数");
             die;
         }
-        $pass = $_GET["pass"];
+        $pass = $_REQUEST["pass"];
         // base64解码
         $pass = base64_decode($pass);
 
         // 登录地址
-        if (!isset($_GET["address"])){
+        if (!isset($_REQUEST["address"])){
             echo $this->failed("需要address参数");
             die;
         }
-        $address = $_GET["address"];
+        $address = $_REQUEST["address"];
         // base64解码
         $address = base64_decode($address);
 
         // 网站logo
-        $logo = $this->getLogo($address);
+        if (!isset($_REQUEST["logo"])){
+            echo $this->failed("需要logo参数");
+            die;
+        }
+        $logo = $_REQUEST["logo"];
 
         // 备注
-        if (!isset($_GET["remark"])){
+        if (!isset($_REQUEST["remark"])){
             echo $this->failed("需要remark参数");
             die;
         }
-        $remark = $_GET["remark"];
-
-        // 附件id
-        if (!isset($_GET["attachmentId"])){
-            echo $this->failed("需要attachmentId参数");
-            die;
-        }
-        $attachmentId = $_GET["attachmentId"];
+        $remark = $_REQUEST["remark"];
 
         // 插入数据库
         $insertData = [
@@ -165,9 +162,6 @@ EEE;
             $resId = $this->addAccountToPlat($platId,$res);
             if ($resId){
                 // 成功
-
-                // 修改附件id
-                DatabaseDataManager::getSingleton()->update("acc_attachment",["aid"=>$res],["id"=>$attachmentId]);
                 echo $this->success("账号添加成功 ");
                 die;
             }
@@ -178,98 +172,115 @@ EEE;
     // 修改账号信息
     public function editAccount(){
         // id
-        if (!isset($_GET["id"])){
+        if (!isset($_REQUEST["id"])){
             echo $this->failed("需要id参数");
             die;
         }
-        $accId = $_GET["id"];
+        $accId = $_REQUEST["id"];
 
         // 所属平台id
-        if (!isset($_GET["platId"])){
+        if (!isset($_REQUEST["platId"])){
             echo $this->failed("需要platId参数");
             die;
         }
-        $platId = $_GET["platId"];
+        $platId = $_REQUEST["platId"];
 
         // 账户描述
-        if (!isset($_GET["desc"])){
+        if (!isset($_REQUEST["desc"])){
             echo $this->failed("需要desc参数");
             die;
         }
-        $accDesc = $_GET["desc"];
+        $accDesc = $_REQUEST["desc"];
 
         // 用户名
-        if (!isset($_GET["user"])){
+        if (!isset($_REQUEST["user"])){
             echo $this->failed("需要user参数");
             die;
         }
-        $user = $_GET["user"];
+        $user = $_REQUEST["user"];
         // base64解码
         $user = base64_decode($user);
         // 解码js进行的uri编码，为了处理中文
         $user = urldecode($user);
 
         // 密码
-        if (!isset($_GET["pass"])){
+        if (!isset($_REQUEST["pass"])){
             echo $this->failed("需要pass参数");
             die;
         }
-        $pass = $_GET["pass"];
+        $pass = $_REQUEST["pass"];
         // base64解密
         $pass = base64_decode($pass);
 
         // 登录地址
-        if (!isset($_GET["address"])){
+        if (!isset($_REQUEST["address"])){
             echo $this->failed("需要address参数");
             die;
         }
-        $address = $_GET["address"];
+        $address = $_REQUEST["address"];
         // base64解码
         $address = base64_decode($address);
 
+//        // 附件id
+//        if (!isset($_REQUEST["attachmentId"])){
+//            echo $this->failed("需要attachmentId参数");
+//            die;
+//        }
+//        $attachmentId = $_REQUEST["attachmentId"];
+
         // 网站logo
-        $logo = $this->getLogo($address);
+        if (!isset($_REQUEST["logo"])){
+            echo $this->failed("需要logo参数");
+            die;
+        }
+        $logo = $_REQUEST["logo"];
 
         // 备注
-        if (!isset($_GET["remark"])){
+        if (!isset($_REQUEST["remark"])){
             echo $this->failed("需要remark参数");
             die;
         }
-        $remark = $_GET["remark"];
+        $remark = $_REQUEST["remark"];
 
         // 排序
-        if (!isset($_GET["sort"])){
+        if (!isset($_REQUEST["sort"])){
             echo $this->failed("需要sort参数");
             die;
         }
-        $sort = $_GET["sort"];
+        $sort = $_REQUEST["sort"];
 
         // 查询原来所属的平台并移除
+        $resId = "";
         $oldPlatData = DatabaseDataManager::getSingleton()->find($this->tableName,["id"=>$accId],["plat_id"]);
         if ($oldPlatData){
             $oldPlatId = $oldPlatData[0]["plat_id"];
-            $this->deleteAccFromPlatform($oldPlatId,$accId);
+            // 修改了所属平台
+            if ($oldPlatId != $platId){
+                $this->deleteAccFromPlatform($oldPlatId,$accId);
+                // 添加账号id记录到新的平台中
+                $resId = $this->addAccountToPlat($platId,$accId);
+            }
         }
 
-        // 添加账号id记录到新的平台中
-        $resId = $this->addAccountToPlat($platId,$accId);
-        if ($resId){
-            // 修改的数据
-            $editData = [
-                "plat_id"       =>  $platId,
-                "acc_desc"      =>  $accDesc,
-                "user"          =>  $user,
-                "passwd"        =>  $pass,
-                "address"       =>  $address,
-                "remark"        =>  $remark,
-                "logo"          =>  $logo,
-                "sort"          =>  $sort
-            ];
-            $res = DatabaseDataManager::getSingleton()->update($this->tableName,$editData,["id"=>$accId]);
-            if ($res){
-                echo $this->success("修改成功");
-                die;
-            }
+        // 修改的数据
+        $editData = [
+            "acc_desc"      =>  $accDesc,
+            "user"          =>  $user,
+            "passwd"        =>  $pass,
+            "address"       =>  $address,
+            "remark"        =>  $remark,
+            "logo"          =>  $logo,
+            "sort"          =>  $sort
+        ];
+
+        if ($resId != ""){
+            $editData["plat_id"] = $platId;
+        }
+
+        $res = DatabaseDataManager::getSingleton()->update($this->tableName,$editData,["id"=>$accId]);
+        if ($res){
+            echo $this->success("修改成功");
+            die;
         }
 
         echo $this->failed("修改失败");
@@ -278,18 +289,18 @@ EEE;
     // 删除账号
     public function deleteAccount(){
         // id
-        if (!isset($_GET["id"])){
+        if (!isset($_REQUEST["id"])){
             echo $this->failed("需要id参数");
             die;
         }
-        $accId = $_GET["id"];
+        $accId = $_REQUEST["id"];
 
         // platid
-        if (!isset($_GET["platId"])){
+        if (!isset($_REQUEST["platId"])){
             echo $this->failed("需要platId参数");
             die;
         }
-        $platId = $_GET["platId"];
+        $platId = $_REQUEST["platId"];
 
         // 先删除平台表中的账号列表记录
         $this->deleteAccFromPlatform($platId,$accId);
@@ -350,26 +361,26 @@ EEE;
     // 获取logo
     public function loadLogo(){
         // 网址
-        if (!isset($_GET["address"])){
+        if (!isset($_REQUEST["address"])){
             echo $this->failed("需要address参数");
             die;
         }
-        $address = $_GET["address"];
+        $address = $_REQUEST["address"];
         $address = base64_decode($address);
 
         // id
-        if (!isset($_GET["accId"])){
+        if (!isset($_REQUEST["accId"])){
             echo $this->failed("需要accId参数");
             die;
         }
-        $accId = $_GET["accId"];
+        $accId = $_REQUEST["accId"];
 
         // 选择的接口
-        if (!isset($_GET["selectApi"])){
+        if (!isset($_REQUEST["selectApi"])){
             echo $this->failed("需要selectApi参数");
             die;
         }
-        $selectApi = $_GET["selectApi"];
+        $selectApi = $_REQUEST["selectApi"];
         $selectApi = strlen($selectApi) == 0 ? 1 : ((int)$selectApi);
 
         $logoData = "";
@@ -403,11 +414,11 @@ EEE;
     // 取消添加账户，如果没有账户对应的记录，就删除刚添加的附件记录
     public function cacelAddAccount(){
         // id
-        if (!isset($_GET["attId"])){
+        if (!isset($_REQUEST["attId"])){
             echo $this->failed("需要attId参数");
             die;
         }
-        $attId = $_GET["attId"];
+        $attId = $_REQUEST["attId"];
 
         $res = (new API_AttachmentController())->clearAttachment("","",$attId);
     }
