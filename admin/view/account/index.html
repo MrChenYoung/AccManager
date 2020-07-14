@@ -758,7 +758,7 @@
     }
 
     // 显示添加/修改账号浮层
-    function showEditCatCover(hideHud=false) {
+    function showEditCatCover(hudDismiss=false) {
         $(".add-category-box").css("display","block");
         if (isEdit){
             $("#legend_title").text("修改账号");
@@ -782,7 +782,7 @@
         // logo
         $("#logo_img").attr("src",addLogo);
 
-        if(hideHud){
+        if(hudDismiss){
             hideHud();
         }
     }

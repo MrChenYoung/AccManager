@@ -21,7 +21,7 @@ class API_AccountController extends API_BaseController
     public function loadAccountList(){
         // 查询账号列表
         $sql = <<<EEE
-SELECT acc_account.*,acc_platform.plat_name FROM acc_account,acc_platform WHERE acc_account.plat_id=acc_platform.id ORDER BY acc_account.sort ASC 
+SELECT acc_account.id,acc_account.acc_desc,acc_account.user,acc_account.passwd,acc_account.address,acc_account.plat_id,acc_account.remark,acc_account.sort,acc_platform.plat_name FROM acc_account,acc_platform WHERE acc_account.plat_id=acc_platform.id ORDER BY acc_account.sort ASC 
 EEE;
 
         $accData = DatabaseDataManager::getSingleton()->fetch($sql);
