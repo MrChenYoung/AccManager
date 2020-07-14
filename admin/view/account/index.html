@@ -673,6 +673,7 @@
         loadPassList(function () {
             // 请求指定账号数据
             var url = baseUrl + "?m=admin&c=API_Account&a=loadAccount&id=" + accId + "&API=";
+            console.log("请求指定账号数据:" + url);
             get(url,function (data) {
                 var accData = data.data;
                 selectedPlatId = accData["plat_id"];
