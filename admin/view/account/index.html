@@ -766,13 +766,10 @@
     // 显示添加/修改账号浮层
     function showEditCatCover() {
         $(".add-category-box").css("display","block");
-        console.log("显示浮层");
         if (isEdit){
             $("#legend_title").text("修改账号");
-            $("#attachment_btn").css("display","inline-block");
         }else {
             $("#legend_title").text("添加账号");
-            $("#attachment_btn").css("display","none");
         }
         // 描述
         $("#add_user_desc").val(addDesc);
