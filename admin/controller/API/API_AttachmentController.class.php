@@ -93,7 +93,9 @@ class API_AttachmentController extends API_BaseController
                     // 如果图片文件在本地不存在 保存到本地
                     $imagePath = $this->imageSaveDir."/".$imageName;
                     if (strlen($imageName) > 0 && !file_exists($imagePath) && strlen($imageContent) > 0){
-                        file_put_contents($imagePath,$imageContent);
+                        if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $imageContent, $result)){
+                            file_put_contents($imagePath, base64_decode(str_replace($result[1], '', $imageContent)));
+                        }
                     }
 
                     if (strlen($imageName) > 0){
