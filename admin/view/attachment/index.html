@@ -125,6 +125,13 @@
 <!--选择图片上传-->
 <input type="file" name="file" id="file_select_input" style="display:none">
 
+<!--加载数据等待界面-->
+<div class="main-hud" onclick="hideHud()">
+    <span class="ant-spin-dot ant-spin-dot-spin">
+            <i></i><i></i><i></i><i></i>
+    </span>
+</div>
+
 <div class="container">
     <!--头部-->
     <div class="header-box">
@@ -143,9 +150,7 @@
 </html>
 <script src="<{PUBLIC_PATH}>/common/js/jquery.2.js" type="text/javascript"></script>
 <script src="<{PUBLIC_PATH}>common/layui/layui.js" charset="utf-8"></script>
-<script src="<{PUBLIC_PATH}>common/js/cookie.js" type="text/javascript" ></script>
 <script src="<{PUBLIC_PATH}>common/js/less.min.js"></script>
-<script src="<{PUBLIC_PATH}>common/js/common.js"  type="text/javascript"></script>
 <script>
     // 当前附件列表所属的数据id
     var aid = "";
@@ -165,6 +170,17 @@
 
         // 监听文件被选择
         $('#file_select_input').change(function(e){
+            less = {
+                env: "development",
+                async: false,
+                fileAsync: false,
+                poll: 1000,
+                functions: {},
+                dumpLineNumbers: "comments",
+                relativeUrls: false,
+                rootpath: ":/a.com/"
+            };
+
             //获取选中图片对象（包含文件的名称、大小、类型等，如file.size）
             var file = document.getElementById("file_select_input").files[0];
 
@@ -198,6 +214,36 @@
         // 获取附件列表
         loadAttachmentLists();
     });
+
+    // 显示hud
+    function showHud() {
+        $(".main-hud").css("display","block");
+    };
+
+    // 隐藏hud
+    function hideHud() {
+        $(".main-hud").css("display","none");
+    }
+
+    /**
+     * 显示提示信息
+     * @param message
+     */
+    function toast(message,success=true) {
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            if (typeof message == 'string'){
+                var time = message.length * 0.3 * 1000;
+                var skin = success ? "" : "toast-fail-style";
+                layer.msg(message, {
+                    // 多长事件后自动关闭(ms)
+                    time: time,
+                    offset: 'auto',
+                    skin: skin
+                });
+            }
+        });
+    }
 
     // 获取附件列表
     function loadAttachmentLists() {
@@ -366,4 +412,67 @@
         return e || window.event;
     }
 
+    // 发送GET网络请求
+    function get(url, complete=null,withHud=true,showToast=false,timeOut=10000,failFunc=null) {
+        request(url,null,complete,withHud,showToast,timeOut,failFunc);
+    }
+
+    // 发送post网络请求
+    function post(url, data=null, complete=null,withHud=true,showToast=false,timeOut=10000) {
+        request(url,data,complete,withHud,showToast,timeOut);
+    }
+
+    // 发送请求
+    function request(url, data=null, complete=null,withHud=true,showToast=false,timeOut=10000,failFunc=null) {
+        if (withHud){
+            showHud();
+        }
+
+        var method = data == null ? "get" : "post";
+        console.log("方法:" + method);
+        console.log("请求地址:" + url);
+
+        $.ajax({
+            type : method,
+            url : url,
+            data: data,
+            cache : false,
+            async : true,
+            timeout: timeOut,
+            dataType : "json",
+            beforeSend:function (jqxhr,settings) {
+                jqxhr.requestURL = url;
+            }
+            ,complete: function () {
+                console.log("加载完成");
+                if (withHud) {
+                    hideHud();
+                }
+            }
+            ,success: function (data,state,xhr) {
+                console.log("成功:" + xhr.requestURL);
+                var message = typeof(data.data) == 'string' ? data.data : data.message;
+                if (data.code == 200){
+                    showToast ? toast(message) : "";
+                    complete ? complete(data) : "";
+
+                }else if(data.code != 200){
+                    // 提示失败信息
+                    toast(message,false);
+                }
+            },
+            error: function (xhr,textStatus,errorMessage) {
+                if (withHud) {
+                    hideHud();
+                }
+                if (showToast){
+                    toast("请求服务器失败");
+                }
+                console.log("请求失败了偶尔Lee:" + errorMessage);
+                if (failFunc){
+                    failFunc();
+                }
+            }
+        });
+    }
 </script>
