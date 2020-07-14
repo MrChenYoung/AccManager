@@ -116,6 +116,8 @@
 </head>
 
 <body>
+<!--网络请求baseUrl-->
+<input id="base_url" type="hidden" value="<{$data.baseUrl}>">
 <!--id-->
 <input type="hidden" value="<{$data.aid}>" id="aid"/>
 <!--tbname-->
@@ -124,6 +126,7 @@
 <input type="hidden" value="<{$data.accName}>" id="acc_name"/>
 <!--选择图片上传-->
 <input type="file" name="file" id="file_select_input" style="display:none">
+
 
 <!--加载数据等待界面-->
 <div class="main-hud" onclick="hideHud()">
