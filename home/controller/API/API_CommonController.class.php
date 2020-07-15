@@ -106,7 +106,7 @@ class API_CommonController extends API_BaseController
         $res = DatabaseDataManager::getSingleton()->find("acc_account",["id"=>$accId],["remark"]);
         if ($res && count($res) > 0){
             $remark = $res[0]["remark"];
-            $this->success($remark);
+            $this->success(["remark"=>$remark]);
         }else {
             echo $this->failed("获取备注失败");
         }
