@@ -138,6 +138,8 @@
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
 
+        console.log("查看备注");
+
         $(".add-category-box").css("display","block");
         $("#acc_remark").val(remarkContent);
     }
