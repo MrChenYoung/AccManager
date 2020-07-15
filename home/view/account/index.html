@@ -16,6 +16,8 @@
         console.log("获取平台列表:" + url);
         $(".loading-cover").css("display","block");
         get(url,function (data) {
+            $(".loading-cover").css("display","none");
+            
             var platLists = data.data["platform_list"];
             // 创建卡片列表
             // createCards(platLists);
@@ -215,7 +217,6 @@
 
 <!--等待加载loading-->
 <div class="loading-cover">
-<!--    <img src="/public/common/img/loading_b.gif">-->
     <img src="/public/common/img/ajax-loader.gif">
 </div>
 <{/block}>
