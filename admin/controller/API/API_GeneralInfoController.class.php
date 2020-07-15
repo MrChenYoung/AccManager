@@ -17,7 +17,7 @@ class API_GeneralInfoController extends API_BaseController
 
     // 请求常用信息列表
     public function loadGeneralInfoList(){
-        $res = $platData = DatabaseDataManager::getSingleton()->find($this->tableName);
+        $res = $platData = DatabaseDataManager::getSingleton()->find($this->tableName,[],[],"ORDER BY sort ASC");
         echo $this->success($res);
     }
 
