@@ -14,11 +14,12 @@
         var catId  = $("#cat_id").val();
         var url = baseUrl + "?m=home&c=API_Common&a=loadHomeAccountLists&API=&id=" + catId;
         console.log("获取平台列表:" + url);
+        $(".loading-cover").css("display","block");
         get(url,function (data) {
             var platLists = data.data["platform_list"];
             // 创建卡片列表
-            createCards(platLists);
-        });
+            // createCards(platLists);
+        },false);
     }
 
     // 创建卡片
@@ -210,5 +211,10 @@
             </div>
         </form>
     </div>
+</div>
+
+<!--等待加载loading-->
+<div class="loading-cover">
+    <img src="/public/common/img/loading_b.gif">
 </div>
 <{/block}>
