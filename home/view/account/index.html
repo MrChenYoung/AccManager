@@ -48,7 +48,7 @@
                 dom += '<div class="text-content"><div class="card-title"><strong>' + accDesc + '</strong>';
                 if (accRemark.length > 0){
                     accRemark = "'" + accRemark + "'";
-                    dom += '<span onclick="checkRemark(this)">备注</span>';
+                    dom += '<span aid="'+ accId +'" onclick="checkRemark(this)">备注</span>';
                 }
                 if (accAttach){
                     // 有附件
@@ -138,8 +138,11 @@
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
 
+        var $this = $(obj);
+        var accId = $this.attr("aid");
+
         // 请求备注信息
-        var url = "?m=admin&c=API_Attachment&a=loadAttachmentLists&id=" + accId + "&tbName=acc_account";
+        var url = "?m=home&c=API_Common&a=loadAccountRemark&id=" + accId;
         get(url,function (data) {
             var remark = data.data;
 
