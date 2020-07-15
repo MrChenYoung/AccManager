@@ -84,7 +84,7 @@ EEE;
                         address varchar(300) DEFAULT '' COMMENT '登录地址',
                         plat_id int  DEFAULT 0 COMMENT '所属平台',
                         logo MEDIUMTEXT COMMENT 'logo',
-                        remark varchar(500) DEFAULT '' COMMENT '备注'
+                        remark varchar(5000) DEFAULT '' COMMENT '备注'
                     ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='账号表';
 EEE;
         $this->dao->createTable($tableName,$sql);
