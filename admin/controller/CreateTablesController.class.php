@@ -97,6 +97,7 @@ EEE;
         $sql = <<<EEE
                     CREATE TABLE $tableName(
                         id int AUTO_INCREMENT PRIMARY KEY COMMENT '密码id',
+                        sort int DEFAULT 0 COMMENT '排序',
                         pass_desc varchar(128) DEFAULT '' COMMENT '密码描述',
                         passwd varchar(256) DEFAULT '' COMMENT '密码值',
                         pass_level int DEFAULT 0 COMMENT '密码安全级别'

@@ -19,7 +19,7 @@ class API_PassManagerController extends API_BaseController
     // 请求密码列表
     public function loadPassList(){
         // 查询密码列表
-        $res = $platData = DatabaseDataManager::getSingleton()->find($this->tableName);
+        $res = $platData = DatabaseDataManager::getSingleton()->find($this->tableName,[],[],"ORDER BY sort ASC");
         echo $this->success($res);
     }
 
@@ -48,7 +48,14 @@ class API_PassManagerController extends API_BaseController
         }
         $level = $_GET["level"];
 
-        $res = DatabaseDataManager::getSingleton()->insert($this->tableName,["pass_desc"=>$desc,"passwd"=>$pass,"pass_level"=>$level]);
+        // 排序
+        if (!isset($_GET["sort"])){
+            echo $this->failed("需要sort参数");
+            die;
+        }
+        $sort = $_GET["sort"];
+
+        $res = DatabaseDataManager::getSingleton()->insert($this->tableName,["pass_desc"=>$desc,"passwd"=>$pass,"pass_level"=>$level,"sort"=>$sort]);
 
         if ($res){
             echo $this->success("添加成功");
@@ -106,7 +113,14 @@ class API_PassManagerController extends API_BaseController
         // base64解密
         $pass = base64_decode($pass);
 
-        $res = DatabaseDataManager::getSingleton()->update($this->tableName,["pass_desc"=>$desc,"passwd"=>$pass,"pass_level"=>$level],["id"=>$id]);
+        // 排序
+        if (!isset($_GET["sort"])){
+            echo $this->failed("需要sort参数");
+            die;
+        }
+        $sort = $_GET["sort"];
+
+        $res = DatabaseDataManager::getSingleton()->update($this->tableName,["pass_desc"=>$desc,"passwd"=>$pass,"pass_level"=>$level,"sort"=>$sort],["id"=>$id]);
         if ($res){
             echo $this->success("修改成功");
         }else {

@@ -94,6 +94,10 @@
         background-color: transparent;
     }
 
+    .layui-form-item .cat-sort {
+        width: 100px;
+    }
+
 </style>
 <{/block}>
 <{block name="scriptCode"}>
@@ -106,7 +110,8 @@
     var passLevel = '';
     // 修改的密码id
     var editPassId = "";
-
+    // 排序
+    var sort = 0;
     $(document).ready(function () {
         // 设置边栏服务器信息选中状态
         $("#pass_manager").addClass("active");
@@ -120,6 +125,11 @@
         var passVInput = $("#pass_value");
         passVInput.bind("input propertychange", function (event) {
             passValue = passVInput.val();
+        });
+        // 监听输入排序
+        var catSortInput = $("#cat_sort");
+        catSortInput.bind("input propertychange", function (event) {
+            sort = catSortInput.val();
         });
 
         // 监听密码安全级别选择
@@ -141,7 +151,7 @@
         get(url,function (data) {
             // 创建密码列表
             createPassDom(data.data);
-        },false);
+        });
     }
 
     // 添加密码
@@ -150,6 +160,7 @@
         passDesc = "";
         passValue = "";
         passLevel = "";
+        sort = 0;
         // 显示添加界面
         showEditCatCover();
     }
@@ -179,7 +190,9 @@
                     break;
             }
 
-            dom += '<tr><td>'+ passData["pass_desc"] +'</td>';
+            dom += '<tr>';
+            dom += '<td>'+ passData["sort"] +'</td>';
+            dom += '<td>'+ passData["pass_desc"] +'</td>';
             dom += '<td><input pass="'+ passData["passwd"] +'" readonly="readonly" type="password" class="layui-input pass-view-input" value="'+ passData["passwd"] +'">';
             dom += '<i title="查看" passId="'+ passData["id"] +'" onclick="previewPass(this)" class="iconfont icon-Xtubiao-chakan translation-icon"></i><i title="复制" passId="'+ passData["id"] +'" id="copy_btn" onclick="copyPass(this)" class="icon icon-reply translation-icon"></i><input class="real-pass" type="text" id="real_pass_'+ passData["id"] +'"></td>';
             dom += '<td>'+ levelDes +'</td>';
@@ -259,14 +272,16 @@
                 + "&id=" + editPassId
                 + "&level=" + passLevel
                 + "&desc=" + passDesc
-                + "&pass=" + passValue;
+                + "&pass=" + passValue
+                + "&sort=" + sort;
             console.log("编辑:" + url);
         }else {
             // 添加
             url = baseUrl + "?m=admin&c=API_PassManager&a=addPass&API="
                 + "&desc=" + passDesc
                 + "&pass=" + passValue
-                + "&level=" + passLevel;
+                + "&level=" + passLevel
+                + "&sort=" + sort ;
         }
 
         console.log("添加密码:" + url);
@@ -311,6 +326,7 @@
             passDesc = accData["pass_desc"];
             passValue = accData["passwd"];
             passLevel = accData["pass_level"];
+            sort = accData["sort"];
 
             // 解密
             passValue = RSADecryptPass(passValue);
@@ -338,6 +354,9 @@
 
             // 密码
             $("#pass_value").val(passValue);
+
+            // 排序
+            $("#cat_sort").val(sort);
             form.render();
         });
     }
@@ -358,10 +377,12 @@
                     <col width="150">
                     <col width="150">
                     <col width="150">
+                    <col width="150">
                     <col width="200">
                 </colgroup>
                 <thead>
                 <tr>
+                    <th>排序</th>
                     <th>密码描述</th>
                     <th>密码</th>
                     <th>安全级别</th>
@@ -382,6 +403,12 @@
             <legend id="legend_title">添加密码</legend>
         </fieldset>
         <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline cat-sort">
+                    <input style="text-align: center" id="cat_sort" type="text" lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">安全级别</label>
                 <div class="layui-input-inline">
