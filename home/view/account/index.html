@@ -138,10 +138,14 @@
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
 
-        console.log("查看备注");
+        // 请求备注信息
+        var url = "?m=admin&c=API_Attachment&a=loadAttachmentLists&id=" + accId + "&tbName=acc_account";
+        get(url,function (data) {
+            var remark = data.data;
 
-        $(".add-category-box").css("display","block");
-        $("#acc_remark").val(remarkContent);
+            $(".add-category-box").css("display","block");
+            $("#acc_remark").val(remark);
+        },false);
     }
     
     // 点击备注查看界面浮层

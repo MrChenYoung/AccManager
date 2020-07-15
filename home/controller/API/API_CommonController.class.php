@@ -93,4 +93,22 @@ class API_CommonController extends API_BaseController
             return [];
         }
     }
+
+    // 获取备注
+    public function loadAccountRemark(){
+        // id
+        if (!isset($_GET["id"])){
+            echo $this->failed("需要id参数");
+            die;
+        }
+        $accId = $_GET["id"];
+
+        $res = DatabaseDataManager::getSingleton()->find("acc_account",["id"=>$accId],["remark"]);
+        if ($res && count($res) > 0){
+            $remark = $res[0]["remark"];
+            $this->success($remark);
+        }else {
+            echo $this->failed("获取备注失败");
+        }
+    }
 }
