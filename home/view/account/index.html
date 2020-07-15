@@ -17,10 +17,10 @@
         $(".loading-cover").css("display","block");
         get(url,function (data) {
             $(".loading-cover").css("display","none");
-            
+
             var platLists = data.data["platform_list"];
             // 创建卡片列表
-            // createCards(platLists);
+            createCards(platLists);
         },false);
     }
 
