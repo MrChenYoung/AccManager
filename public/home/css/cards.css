@@ -176,6 +176,7 @@ h4 i.iconfont {
     top: 0;
     display: none;
     text-align: center;
+    vertical-align: middle;
 }
 
 .loading-cover image {
