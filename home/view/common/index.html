@@ -80,12 +80,14 @@
         // 清空
         cardDoms = "";
 
+        $(".loading-cover").css("display","block");
         var url = baseUrl + "?m=admin&c=API_GeneralInfo&a=loadGeneralInfoList&API=";
         console.log("请求常用信息:" + url);
         get(url, function (data) {
             // 创建常用信息数据卡片
             createGInfoCards(data.data);
 
+            $(".loading-cover").css("display","none");
             // 请求备用密码数据
             loadPassLists();
         });
@@ -319,5 +321,10 @@
             </div>
         </form>
     </div>
+</div>
+
+<!--等待加载loading-->
+<div class="loading-cover">
+    <img src="/public/common/img/ajax-loader.gif">
 </div>
 <{/block}>
