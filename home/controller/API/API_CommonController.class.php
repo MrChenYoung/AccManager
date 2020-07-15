@@ -50,11 +50,6 @@ class API_CommonController extends API_BaseController
                         }
                         // 按照sort排序
                         array_multisort($sortData, SORT_ASC, $accLists);
-
-                        echo "<pre>";
-                        var_dump($sortData);
-                        var_dump($accLists);
-                        die;
                         $platData["acc_list"] = $accLists;
                     }
                     $platLists[] = $platData;
