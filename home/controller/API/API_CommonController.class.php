@@ -49,11 +49,14 @@ class API_CommonController extends API_BaseController
                             }
                         }
                         // 按照sort排序
-//                        array_multisort($sortData, SORT_ASC, $accLists);
+                        array_multisort($sortData, SORT_ASC, $accLists);
                         $platData["acc_list"] = $accLists;
                     }
                     $platLists[] = $platData;
+                    $platSortArray[] = $platData["sort"];
                 }
+                // 按照sort排序
+                array_multisort($platSortArray, SORT_ASC, $platLists);
                 $catData["platform_list"] = $platLists;
             }
         }
