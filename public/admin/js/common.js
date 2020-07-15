@@ -1,3 +1,7 @@
+
+var scrollToBottom = true;
+var stopScrollTime = 0;
+
 // 展示日志
 function checkLog() {
     console.log("打开日志");
