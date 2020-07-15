@@ -119,6 +119,7 @@ EEE;
         $sql = <<<EEE
                     CREATE TABLE $tableName(
                         id int AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+                        sort int DEFAULT 0 COMMENT '排序',
                         info_desc varchar(128) DEFAULT '' COMMENT '描述',
                         encrypt_info varchar(256) DEFAULT '' COMMENT '加密信息',
                         remark varchar(500) DEFAULT '' COMMENT '备注'

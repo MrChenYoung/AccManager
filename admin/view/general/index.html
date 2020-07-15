@@ -108,7 +108,8 @@
     var editInfoId = "";
     // 是否是编辑信息
     var isEdit = false;
-
+    // 排序
+    var sort = 0;
     $(document).ready(function () {
         // 设置边栏服务器信息选中状态
         $("#general_info").addClass("active");
@@ -130,6 +131,12 @@
             remarkInfo = remarkInput.val();
         });
 
+        // 监听输入排序
+        var catSortInput = $("#cat_sort");
+        catSortInput.bind("input propertychange", function (event) {
+            sort = catSortInput.val();
+        });
+
         // 获取常用信息列表
         loadGeneralInfoList();
     });
@@ -149,6 +156,7 @@
         infoDesc = "";
         encryptInfo = "";
         remarkInfo = "";
+        sort = 0;
         // 显示添加界面
         showEditCatCover();
     }
@@ -162,8 +170,11 @@
             var infoDesc = infoData["info_desc"];
             var encryptInfo = infoData["encrypt_info"];
             var remark = infoData["remark"];
+            var sort = infoData["sort"];
 
-            dom += '<tr><td>'+ infoDesc +'</td>';
+            dom += '<tr>';
+            dom += '<td>'+ sort +'</td>';
+            dom += '<td>'+ infoDesc +'</td>';
             dom += '<td><input pass="'+ encryptInfo +'" readonly="readonly" type="password" class="layui-input pass-view-input" value="'+ encryptInfo +'">';
             dom += '<i title="查看" passId="'+ infoId +'" onclick="previewInfo(this)" class="iconfont icon-Xtubiao-chakan translation-icon"></i><i title="复制" passId="'+ infoId +'" id="copy_btn" onclick="copyInfo(this)" class="icon icon-reply translation-icon"></i><input class="real-pass" type="text" id="real_pass_'+ infoId +'"></td>';
             dom += '<td>'+ remark +'</td>';
@@ -239,14 +250,16 @@
                 + "&id=" + editInfoId
                 + "&remark=" + remarkInfo
                 + "&desc=" + infoDesc
-                + "&pass=" + encryptInfo;
+                + "&pass=" + encryptInfo
+                + "&sort=" + sort;
             console.log("编辑:" + url);
         }else {
             // 添加
             url = baseUrl + "?m=admin&c=API_GeneralInfo&a=addGInfo&API="
                 + "&desc=" + infoDesc
                 + "&pass=" + encryptInfo
-                + "&remark=" + remarkInfo;
+                + "&remark=" + remarkInfo
+                + "&sort=" + sort;
         }
 
         console.log("添加常用信息:" + url);
@@ -291,6 +304,7 @@
             infoDesc = accData["info_desc"];
             encryptInfo = accData["encrypt_info"];
             remarkInfo = accData["remark"];
+            sort = accData["sort"];
 
             // 解密
             encryptInfo = RSADecryptPass(encryptInfo);
@@ -319,6 +333,9 @@
 
             // 备注信息
             $("#info_remark").val(remarkInfo);
+
+            // 排序
+            $("#cat_sort").val(sort);
             form.render();
         });
     }
@@ -363,6 +380,12 @@
             <legend id="legend_title">添加常用信息</legend>
         </fieldset>
         <form class="layui-form layui-form-pane" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline cat-sort">
+                    <input style="text-align: center" id="cat_sort" type="text" lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                </div>
+            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">描述</label>
                 <div class="layui-input-inline user-name">
