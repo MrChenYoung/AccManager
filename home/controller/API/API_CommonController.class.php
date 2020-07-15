@@ -107,12 +107,7 @@ class API_CommonController extends API_BaseController
 
         if ($res && count($res) > 0){
             $remark = $res[0]["remark"];
-            echo "<pre>";
-            echo "123:";
-            var_dump($remark);
-            die;
-
-            $this->success(["remark"=>$remark]);
+            echo $this->success(["remark"=>$remark]);
         }else {
             echo $this->failed("获取备注失败");
         }
