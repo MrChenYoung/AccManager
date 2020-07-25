@@ -78,6 +78,9 @@
         margin-top: 350px;
     }
 
+    .loading-cover {
+        margin-left: 70px;
+    }
 </style>
 <{/block}>
 <{block name="scriptCode"}>
@@ -341,7 +344,9 @@
 </div>
 
 <!--等待加载loading-->
-<div class="loading-cover">
-    <img src="/public/common/img/ajax-loader.gif">
+<div class="mod">
+    <div class="loading-cover">
+        <img style="width: 60px;height: 60px;background-color: transparent" src="/public/common/img/loading.gif">
+    </div>
 </div>
 <{/block}>
