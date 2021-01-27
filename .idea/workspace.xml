@@ -4,6 +4,8 @@
     <list default="true" id="e8364487-db93-4c3b-b603-3e47a54a1d93" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/controller/API/API_DatabaseController.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/controller/API/API_DatabaseController.class.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/controller/DbBackup.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/controller/DbBackup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/framework/tools/MultiThreadTool.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/tools/MultiThreadTool.class.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +114,7 @@
       <workItem from="1611234742371" duration="11000" />
       <workItem from="1611234906600" duration="42000" />
       <workItem from="1611317230374" duration="513000" />
-      <workItem from="1611732231628" duration="399000" />
+      <workItem from="1611732231628" duration="1702000" />
     </task>
     <servers />
   </component>
