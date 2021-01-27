@@ -25,6 +25,7 @@ class DbManagerController extends Controller
         $this->data["msg"] = base64_decode($msg);
         $this->data["tbName"] = $tbName;
 
+
         echo "<pre>";
         var_dump($this->data);
 
