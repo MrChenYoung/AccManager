@@ -18,6 +18,7 @@ class Controller
     // 本站站点路径
     protected $website;
 
+    
     public function __construct()
     {
         $this -> smarty = new Smarty();
