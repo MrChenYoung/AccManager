@@ -26,7 +26,7 @@ class MultiThreadTool
         $path = $urlinfo['path'];
         $query = isset($param)? http_build_query($param) : '';
 
-        $port = 8083;
+        $port = 8004;
         $errno = 0;
         $errstr = '';
         $timeout = 10;
