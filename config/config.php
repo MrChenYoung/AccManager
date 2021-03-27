@@ -15,5 +15,5 @@ return [
     //默认的模块
     'default_module'     =>      'home',
     'default_controller'=>      'Common',
-    'default_action'    =>      'index',
+    'default_action'    =>      'index'
 ];
