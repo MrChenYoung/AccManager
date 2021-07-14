@@ -16,6 +16,4 @@ return [
     'default_module'     =>      'home',
     'default_controller'=>      'Common',
     'default_action'    =>      'index'
-
-    
 ];
