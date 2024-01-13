@@ -1,4 +1,4 @@
-<?php $webSite = "http://".$_SERVER['HTTP_HOST'];  $pubP = $webSite."/public"?>
+<?php $webSite = "https://".$_SERVER['HTTP_HOST'];  $pubP = $webSite."/public"?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +92,7 @@
     <input type="file" id="key_select_input" style="display:none">
 
 </div>
-<input id="web_site" type="hidden" value="<?php echo "http://".$_SERVER['HTTP_HOST'] ?>">
+<input id="web_site" type="hidden" value="<?php echo "https://".$_SERVER['HTTP_HOST'] ?>">
 </body>
 </html>
 <script>

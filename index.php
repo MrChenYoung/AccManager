@@ -40,7 +40,7 @@ function checkRsaKey(){
     // 没有添加 跳转到添加页面
     if (strlen($privateKeyContent) == 0 || strlen($publickKeyContent) == 0){
         // 没有添加 跳转到添加页面
-        $url = "http://".$_SERVER['HTTP_HOST']."/addRsaKey.php?m=".$modoule;
+        $url = "https://".$_SERVER['HTTP_HOST']."/addRsaKey.php?m=".$modoule;
         header("Refresh:0;url=".$url);
     }else {
         // 已经添加
@@ -139,7 +139,7 @@ EEE;
         $pass = base64_encode($pass);
     }
     $errMsg = urlencode($errMsg);
-    $url = "http://".$_SERVER['HTTP_HOST']."/admin/view/login/login.php?loginerr=".$loginerr."&errMsg=".$errMsg."&pass=".$pass."&m=".$m;
+    $url = "https://".$_SERVER['HTTP_HOST']."/admin/view/login/login.php?loginerr=".$loginerr."&errMsg=".$errMsg."&pass=".$pass."&m=".$m;
     header("Refresh:0;url=".$url);
 }
 
