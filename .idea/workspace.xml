@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e8364487-db93-4c3b-b603-3e47a54a1d93" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/addRsaKey.php" beforeDir="false" afterPath="$PROJECT_DIR$/addRsaKey.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/controller/UploadAttachment.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/controller/UploadAttachment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/controller/UploadDBBack.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/controller/UploadDBBack.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/view/db/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/admin/view/db/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/admin/view/login/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/view/login/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/core/Controller.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/core/Controller.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/framework/tools/LogManager.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/framework/tools/LogManager.class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +25,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="1cvk4esBII4lbrmvBgY2rJJ9RJF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="添加" />
@@ -48,7 +41,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/PHPProjects/AccManager",
+    "last_opened_file_path": "E:/PHPProjects/AccManager",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -75,7 +68,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-74080bdb84d3-com.jetbrains.php.sharedIndexes-PS-233.11799.232" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
+        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
       </set>
     </attachedChunks>
   </component>
@@ -143,6 +137,7 @@
       <workItem from="1626282145040" duration="5000" />
       <workItem from="1626282460217" duration="323000" />
       <workItem from="1705152993720" duration="289000" />
+      <workItem from="1719734254659" duration="43000" />
     </task>
     <servers />
   </component>
